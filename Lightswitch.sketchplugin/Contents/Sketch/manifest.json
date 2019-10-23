@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/BohemianCoding/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "icon": "icon.png",
+  "name": "Light Switch",
+  "author": "Samuel Berriman",
+  "description": "Toggle between light or dark symbols and styles",
+  "commands": [
+    {
+      "name": "Toggle Light Styles",
+      "identifier": "toggleLight",
+      "handler": "setLight",
+      "shortcut": "alt + command + l",
+      "description": "Switch selected layers to available light alternatives",
+      "script": "my-command.js",
+      "icon": "dtl.png",
+      "iconDark": "dtlDark.png"
+    },
+    {
+      "name": "Toggle Dark Styles",
+      "identifier": "toggleDark",
+      "handler": "setDark",
+      "shortcut": "alt + command + k",
+      "description": "Switch selected layers to available dark alternatives",
+      "script": "my-command.js",
+      "icon": "ltd.png",
+      "iconDark": "ltdDark.png"
+    }
+  ],
+  "menu": {
+    "title": "Light Switch",
+    "items": [
+      "toggleLight",
+      "toggleDark"
+    ]
+  },
+  "version": "1.0.0",
+  "identifier": "Lightswitch",
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
+}
