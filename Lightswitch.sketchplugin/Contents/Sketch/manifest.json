@@ -10,20 +10,20 @@
       "identifier": "toggleLight",
       "handler": "setLight",
       "shortcut": "alt + command + l",
-      "description": "Switch selected layers to available light alternatives",
       "script": "my-command.js",
       "icon": "dtl.png",
-      "iconDark": "dtlDark.png"
+      "iconDark": "dtlDark.png",
+      "description": "Switch selected layers to available light alternatives"
     },
     {
       "name": "Toggle Dark Styles",
       "identifier": "toggleDark",
       "handler": "setDark",
       "shortcut": "alt + command + k",
-      "description": "Switch selected layers to available dark alternatives",
       "script": "my-command.js",
       "icon": "ltd.png",
-      "iconDark": "ltdDark.png"
+      "iconDark": "ltdDark.png",
+      "description": "Switch selected layers to available dark alternatives"
     }
   ],
   "menu": {
@@ -33,8 +33,8 @@
       "toggleDark"
     ]
   },
-  "version": "1.0.0",
+  "version": "0.1.0",
   "identifier": "Lightswitch",
   "disableCocoaScriptPreprocessor": true,
-  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
+  "appcast": "https://raw.githubusercontent.com/TheBerriman/lightswitch-sketch/master/.appcast.xml"
 }
