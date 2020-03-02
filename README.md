@@ -1,6 +1,5 @@
-# Lightswitch Sketch Plugin
-
 ![GIF of Lightswitch usage](./assets/documentation-images/lightswitch-plugin-icon.png "GIF of Lightswitch usage")
+# Lightswitch Sketch Plugin
 
 Lightswitch is a plugin for Sketch that speeds up conversion between Light/Dark symbols, text styles and layer styles across your screens.
 
