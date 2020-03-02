@@ -53,8 +53,8 @@ export function setDark () {
 export function switchThemes (layer) {
 
   // Change Artboard colors from Light to Dark
-  if ((layer.type === 'Artboard') && (layer.background.enabled) && (Boolean(layer.background.color.match(/^(#f7f7f7ff|#000000ff)$/)))) {
-    layer.background.color = (themeSet === 'DARK') ? '#000000ff' : '#f7f7f7ff';
+  if ((layer.type === 'Artboard') && (layer.background.enabled) && (Boolean(layer.background.color.match(/^(#ffffffff|#000000ff)$/)))) {
+    layer.background.color = (themeSet === 'DARK') ? '#000000ff' : '#ffffffff';
   }
 
   if (layer.layers && layer.layers.length) {

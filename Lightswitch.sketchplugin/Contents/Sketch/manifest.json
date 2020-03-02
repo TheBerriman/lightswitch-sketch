@@ -1,9 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/BohemianCoding/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
   "icon": "icon.png",
-  "name": "Light Switch",
+  "name": "Lightswitch",
   "author": "Samuel Berriman",
-  "description": "Toggle between light or dark symbols and styles",
+  "description": "Toggle between Light or Dark symbols and text/layer styles",
   "commands": [
     {
       "name": "Toggle Light Styles",
@@ -27,7 +27,7 @@
     }
   ],
   "menu": {
-    "title": "Light Switch",
+    "title": "Lightswitch",
     "items": [
       "toggleLight",
       "toggleDark"
