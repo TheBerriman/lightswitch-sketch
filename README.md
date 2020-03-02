@@ -1,6 +1,6 @@
 # Lightswitch
 
-![GIF of Lightswitch usage](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "GIF of Lightswitch usage")
+![GIF of Lightswitch usage](./assets/documentation-images/lightswitch-plugin-icon.png "GIF of Lightswitch usage")
 
 ## Installation
 
@@ -10,12 +10,28 @@
 
 ## Usage
 
-Select artboard, symbols, layers, text and it will do X Y Z
+Select any eligible layers you want switched to their light or dark counterparts and run one of the commands below.
 
 | Menu                          | Shortcut                          | Description                                             |
 | ------------------------------| ----------------------------------| --------------------------------------------------------|
-| Toggle Light Styles           | `⌘ command` + `⌥ option` + `K`    | Switch selected layers to available *light* alternatives |
-| Toggle Dark Styles            | `⌘ command` + `⌥ option` + `L`    | Switch selected layers to available *dark* alternatives |
+| Toggle Light Styles           | `⌘ command` + `⌥ option` + `k`    | Switch selected layers to available *light* alternatives|
+| Toggle Dark Styles            | `⌘ command` + `⌥ option` + `l`    | Switch selected layers to available *dark* alternatives |
+
+
+## How it works
+
+Lightswitch takes your currently selected layers and then finds what Sketch Library they came from. If found, it then searches for the library for an alternative theme equivalent for each `Symbol`, `Text Style` or `Layer Style`.
+
+For example running the command on the symbol instance...
+> Bars / Navigation Bar / iPhone - Compact / Light / Large Title
+
+...would convert it into
+> Bars / Navigation Bar / iPhone - Compact / Dark / Large Title
+
+## Upcoming Features
+- Ability to configure background colours
+- Toggle Symbols, Overrides, Layer Styles or Text styles on/off
+
 
 ## Development Guide
 
@@ -23,4 +39,5 @@ _This plugin was created using `skpm`. For a detailed explanation on how things 
 
 ## Contact
 
-If you want to get in touch feel free to email me directly or send a message through Dribbble at [@samberriman](https://dribbble.com/samberriman)
+* Message through Github [@TheBerriman] (https://github.com/TheBerriman)
+* Message through Dribbble [@SamBerriman](https://dribbble.com/samberriman)
