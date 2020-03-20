@@ -2,33 +2,37 @@
 
 
 # Light Switch Sketch Plugin
-
 Light Switch is a plugin for Sketch that provides actions to automatically convert symbols, text styles and layer styles to available light/dark alternatives.
 
-
+&nbsp;
 # Installation
 
-## Install Manually
+### Install Manually
 1. [Download](../../releases/latest/download/Lightswitch.sketchplugin.zip) the latest release of the plugin
 2. Un-zip
 3. Double-click on Lightswitch.sketchplugin
 
-## Install via Sketch Runner
+### Install via Sketch Runner
 1. Run Sketch Runner
 2. Search _Light Switch_ on the _Install_ tab
 3. Click the _Get_ button
 
-
+&nbsp;
 # How it works
 
 Lightswitch takes the currently selected layers and then finds what Sketch Library they came from. If found, it then searches the library for an alternative for each `Symbol`, `Text Style` or `Layer Style`.
 
 For example running the command on a Library Symbol called...<br />
-`Bars / Navigation Bar / iPhone - Compact / Light / Large Title`
+```
+Bars / Navigation Bar / iPhone - Compact / Light / Large Title
+```
 
 ...would convert it into<br />
-`Bars / Navigation Bar / iPhone - Compact / Dark / Large Title`
+```
+Bars / Navigation Bar / iPhone - Compact / Dark / Large Title
+```
 
+&nbsp;
 ![Screen recording of Light Switch usage](./docs/lightswitch-screen-demo.gif "Light Switch usage GIF")
 
 # Usage
@@ -41,7 +45,7 @@ To use Light Switch; select the layers you want to convert and run one of the co
 | Toggle Dark Styles            | `⌘ command` + `⌥ option` + `l`    | Switch selected layers to available *dark* alternatives |
 | Settings                      |                                   | Configure Light Switch plugin preferences               |
 
-
+&nbsp;
 # Development Guide
 
 _This plugin was created using `skpm`. For a detailed explanation on how things work, checkout the [skpm Readme](https://github.com/skpm/skpm/blob/master/README.md)._
