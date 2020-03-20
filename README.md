@@ -1,48 +1,54 @@
-![GIF of Lightswitch usage](./assets/documentation-images/lightswitch-plugin-icon.png "GIF of Lightswitch usage")
-# Lightswitch Sketch Plugin
+![Light Switch Hero Banner](./docs/lightswitch-hero-banner.png "Light Switch Hero Banner")
 
-Lightswitch is a plugin for Sketch that speeds up conversion between Light/Dark symbols, text styles and layer styles across your screens.
 
-&nbsp;
+# Light Switch Sketch Plugin
+
+Light Switch is a plugin for Sketch that provides actions to automatically convert symbols, text styles and layer styles to available light/dark alternatives.
+
+
 # Installation
 
+## Install Manually
 1. [Download](../../releases/latest/download/Lightswitch.sketchplugin.zip) the latest release of the plugin
 2. Un-zip
 3. Double-click on Lightswitch.sketchplugin
 
-&nbsp;
+## Install via Sketch Runner
+1. Run Sketch Runner
+2. Search _Light Switch_ on the _Install_ tab
+3. Click the _Get_ button
+
+
+# How it works
+
+Lightswitch takes the currently selected layers and then finds what Sketch Library they came from. If found, it then searches the library for an alternative for each `Symbol`, `Text Style` or `Layer Style`.
+
+For example running the command on a Library Symbol called...<br />
+`Bars / Navigation Bar / iPhone - Compact / Light / Large Title`
+
+...would convert it into<br />
+`Bars / Navigation Bar / iPhone - Compact / Dark / Large Title`
+
+![Screen recording of Light Switch usage](./docs/lightswitch-screen-demo.gif "Light Switch usage GIF")
+
 # Usage
 
-Select any eligible layers you want switched to their light or dark counterparts and run one of the commands below.
+To use Light Switch; select the layers you want to convert and run one of the commands below **OR** adjust the to customise the plugin's behaviour.   
 
-| Menu                          | Shortcut                          | Description                                             |
+| Menu Action                   | Shortcut                          | Description                                             |
 | ------------------------------| ----------------------------------| --------------------------------------------------------|
 | Toggle Light Styles           | `⌘ command` + `⌥ option` + `k`    | Switch selected layers to available *light* alternatives|
 | Toggle Dark Styles            | `⌘ command` + `⌥ option` + `l`    | Switch selected layers to available *dark* alternatives |
+| Settings                      |                                   | Configure Light Switch plugin preferences               |
 
-&nbsp;
-# How it works
 
-Lightswitch takes your currently selected layers and then finds what Sketch Library they came from. If found, it then searches for the library for an alternative theme equivalent for each `Symbol`, `Text Style` or `Layer Style`.
-
-For example running the command on the symbol instance...
-> Bars / Navigation Bar / iPhone - Compact / Light / Large Title
-
-...would convert it into
-> Bars / Navigation Bar / iPhone - Compact / Dark / Large Title
-
-&nbsp;
-# Upcoming Features
-- Ability to configure background colours
-- Toggle Symbols, Overrides, Layer Styles or Text styles on/off
-- Support for custom naming such as `1 Light` = `2 Dark`
-
-&nbsp;
 # Development Guide
 
 _This plugin was created using `skpm`. For a detailed explanation on how things work, checkout the [skpm Readme](https://github.com/skpm/skpm/blob/master/README.md)._
 
-&nbsp;
+If you have any suggestions on how to improve the plugin — feel free to get in touch.
+
+
 # Contact
 
 * Message through Github [@TheBerriman] (https://github.com/TheBerriman)
