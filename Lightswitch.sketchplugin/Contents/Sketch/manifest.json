@@ -42,7 +42,7 @@
       "settings"
     ]
   },
-  "version": "1.0.0",
+  "version": "1.1.0",
   "identifier": "Lightswitch",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com/TheBerriman/lightswitch-sketch/master/.appcast.xml"

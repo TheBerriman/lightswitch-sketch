@@ -37,6 +37,7 @@ export function getInputFromUser(context){
     return true;
   } else if (response == "1001") {
       resetSettings();
+      getInputFromUser();
       return false;
   } else if (response == "1002") {
       return false;

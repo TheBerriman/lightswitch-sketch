@@ -56,13 +56,9 @@ export function libraryImporter(idx, layerType) {
   switch (layerType) {
       case ('SymbolMaster'):
         libActive = (librarySymbolRefs[idx]) ? true : false;
-        //libActive = (sketch.Settings.sessionVariable('storedLibrarySymbols')[idx]) ? true : false;
-        //console.log(libActive);
         if (libActive) return;
         librarySymbols[idx] = libraries[idx].getImportableSymbolReferencesForDocument(document);
         librarySymbolRefs[idx] = librarySymbols[idx].map(i => i.name.toUpperCase().replace(/\s/g,''));
-        //sketch.Settings.setSessionVariable('storedLibrarySymbols', librarySymbolRefs);
-        //console.log(sketch.Settings.sessionVariable('storedLibrarySymbols').length);
         break;
       case ('Text'):
         libActive = (libraryTextRefs[idx]) ? true : false;
@@ -175,7 +171,7 @@ export function overrideParser(instance) {
     let instanceId = instance.overrides.map(i => i.id).indexOf(override.id);
     let masterId = instance.master.overrides.map(i => i.id).indexOf(override.id);
     let masterCorrected = (masterId >= 0) ? masterId : 0;
-
+    
     let defaultMasterValue = instance.master.overrides[masterCorrected].value;
     instance.setOverrideValue(instance.overrides[instanceId], defaultMasterValue);
   });

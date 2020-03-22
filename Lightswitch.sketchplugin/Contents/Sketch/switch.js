@@ -139,6 +139,7 @@ function getInputFromUser(context) {
     return true;
   } else if (response == "1001") {
     resetSettings();
+    getInputFromUser();
     return false;
   } else if (response == "1002") {
     return false;
@@ -353,16 +354,12 @@ function libraryImporter(idx, layerType) {
 
   switch (layerType) {
     case 'SymbolMaster':
-      libActive = librarySymbolRefs[idx] ? true : false; //libActive = (sketch.Settings.sessionVariable('storedLibrarySymbols')[idx]) ? true : false;
-      //console.log(libActive);
-
+      libActive = librarySymbolRefs[idx] ? true : false;
       if (libActive) return;
       librarySymbols[idx] = libraries[idx].getImportableSymbolReferencesForDocument(document);
       librarySymbolRefs[idx] = librarySymbols[idx].map(function (i) {
         return i.name.toUpperCase().replace(/\s/g, '');
-      }); //sketch.Settings.setSessionVariable('storedLibrarySymbols', librarySymbolRefs);
-      //console.log(sketch.Settings.sessionVariable('storedLibrarySymbols').length);
-
+      });
       break;
 
     case 'Text':
