@@ -111,7 +111,7 @@ var page = document.selectedPage;
 var selection = document.selectedLayers;
 var textFieldLight, textFieldDark;
 var hexLight, hexDark;
-var artboardsCheckbox, symbolsCheckbox, textLayersCheckbox, shapeLayersCheckbox, overridesCheckbox;
+var artboardsCheckbox, symbolsCheckbox, textLayersCheckbox, shapeLayersCheckbox, overridesCheckbox, groupsCheckbox;
 function getInputFromUser(context) {
   // Create and show dialog window
   var window = createWindow(context);
@@ -135,6 +135,7 @@ function getInputFromUser(context) {
     textLayersCheckbox = textLayersCheckbox.stringValue();
     shapeLayersCheckbox = shapeLayersCheckbox.stringValue();
     overridesCheckbox = overridesCheckbox.stringValue();
+    groupsCheckbox = groupsCheckbox.stringValue();
     updateSettings();
     return true;
   } else if (response == "1001") {
@@ -167,7 +168,7 @@ function createWindow() {
   var darkBgLabel = NSTextField.alloc().initWithFrame(NSMakeRect(140, viewHeight - 105, viewWidth - 30, 55));
   var toggleLabel = NSTextField.alloc().initWithFrame(NSMakeRect(0, viewHeight - 163, viewWidth - 30, 55)); // Configure labels
 
-  infoLabel.setStringValue("Change default light/dark Artboard colors and disable switching specific layer types.");
+  infoLabel.setStringValue("Change default artboard colors and disable switching specific layer types.");
   infoLabel.setSelectable(false);
   infoLabel.setEditable(false);
   infoLabel.setBezeled(false);
@@ -211,7 +212,8 @@ function createWindow() {
   symbolsCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(140, viewHeight - 150, viewWidth - viewSpacer, 20));
   textLayersCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - 172.5, viewWidth - viewSpacer, 20));
   shapeLayersCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(140, viewHeight - 172.5, viewWidth - viewSpacer, 20));
-  overridesCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - 195, viewWidth - viewSpacer, 20)); // Configure checkboxes
+  overridesCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - 195, viewWidth - viewSpacer, 20));
+  groupsCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(140, viewHeight - 195, viewWidth - viewSpacer, 20)); // Configure checkboxes
 
   var defaultArtboard = sketch.Settings.settingForKey('lsToggledArtboards') == 0 ? NSOffState : NSOnState;
   artboardsCheckbox.setButtonType(NSSwitchButton);
@@ -237,13 +239,19 @@ function createWindow() {
   overridesCheckbox.setButtonType(NSSwitchButton);
   overridesCheckbox.setBezelStyle(0);
   overridesCheckbox.setTitle("Symbol Overrides");
-  overridesCheckbox.setState(defaultOverrides); // Add checkbox
+  overridesCheckbox.setState(defaultOverrides);
+  var defaultGroups = sketch.Settings.settingForKey('lsToggledGroups') == 0 ? NSOffState : NSOnState;
+  groupsCheckbox.setButtonType(NSSwitchButton);
+  groupsCheckbox.setBezelStyle(0);
+  groupsCheckbox.setTitle("Groups");
+  groupsCheckbox.setState(defaultOverrides); // Add checkbox
 
   view.addSubview(artboardsCheckbox);
   view.addSubview(symbolsCheckbox);
   view.addSubview(textLayersCheckbox);
   view.addSubview(shapeLayersCheckbox);
-  view.addSubview(overridesCheckbox); // Show the dialog window
+  view.addSubview(overridesCheckbox);
+  view.addSubview(groupsCheckbox); // Show the dialog window
 
   return [alert];
 }
@@ -257,6 +265,7 @@ function updateSettings() {
   sketch.Settings.setSettingForKey('lsToggledTextLayers', textLayersCheckbox);
   sketch.Settings.setSettingForKey('lsToggledShapes', shapeLayersCheckbox);
   sketch.Settings.setSettingForKey('lsToggledOverrides', overridesCheckbox);
+  sketch.Settings.setSettingForKey('lsToggledGroups', groupsCheckbox);
 }
 function resetSettings() {
   sketch.Settings.setSettingForKey('lsLightBgColor', '#ffffff');
@@ -266,6 +275,7 @@ function resetSettings() {
   sketch.Settings.setSettingForKey('lsToggledTextLayers', 1);
   sketch.Settings.setSettingForKey('lsToggledShapes', 1);
   sketch.Settings.setSettingForKey('lsToggledOverrides', 1);
+  sketch.Settings.setSettingForKey('lsToggledGroups', 1);
 }
 
 /***/ }),
@@ -322,6 +332,7 @@ var settingSymbols = sketch.Settings.settingForKey('lsToggledSymbols') > 0 ? tru
 var settingText = sketch.Settings.settingForKey('lsToggledTextLayers') > 0 ? true : false;
 var settingShapes = sketch.Settings.settingForKey('lsToggledShapes') > 0 ? true : false;
 var settingOverrides = sketch.Settings.settingForKey('lsToggledOverrides') > 0 ? true : false;
+var settingGroups = sketch.Settings.settingForKey('lsToggledGroups') > 0 ? true : false;
 function setLight() {
   themeSet = 'LIGHT';
   themeFrom = 'DARK';
@@ -386,6 +397,20 @@ function switchThemes(layer) {
     // Change Artboard colors from Light to Dark
     if ((layer.type === 'Artboard' || layer.type === 'SymbolMaster') && layer.background.enabled && settingArtboards && (Boolean(layer.background.color == defaultBgLight) || Boolean(layer.background.color == defaultBgDark))) {
       layer.background.color = themeSet === 'DARK' ? defaultBgDark : defaultBgLight;
+    } // UPDATE: Check if Group is styled and run switch
+
+
+    if (layer.type === 'Group' && layer.sharedStyle && settingGroups) {
+      console.log('debug');
+      var newSharedLayerStyle = shapeParser(layer.sharedStyle);
+      console.log('debug');
+
+      if (!newSharedLayerStyle) {// failed
+      } else {
+        layer.sharedStyle = newSharedLayerStyle;
+        layer.style.syncWithSharedStyle(newSharedLayerStyle);
+        changeNo++;
+      }
     } // iterate through child layers
 
 
@@ -415,10 +440,12 @@ function switchThemes(layer) {
 
       case 'ShapePath':
         if (!settingShapes) break;
-        var newSharedLayerStyle = shapeParser(layer.sharedStyle);
-        if (!newSharedLayerStyle) break;
-        layer.sharedStyle = newSharedLayerStyle;
-        layer.style.syncWithSharedStyle(newSharedLayerStyle);
+
+        var _newSharedLayerStyle = shapeParser(layer.sharedStyle);
+
+        if (!_newSharedLayerStyle) break;
+        layer.sharedStyle = _newSharedLayerStyle;
+        layer.style.syncWithSharedStyle(_newSharedLayerStyle);
         changeNo++;
         break;
 

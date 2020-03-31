@@ -21,7 +21,7 @@ const settingSymbols = sketch.Settings.settingForKey('lsToggledSymbols') > 0 ? t
 const settingText = sketch.Settings.settingForKey('lsToggledTextLayers') > 0 ? true : false;
 const settingShapes = sketch.Settings.settingForKey('lsToggledShapes') > 0 ? true : false;
 const settingOverrides = sketch.Settings.settingForKey('lsToggledOverrides') > 0 ? true : false;
-
+const settingGroups = sketch.Settings.settingForKey('lsToggledGroups') > 0 ? true : false;
 
 export function setLight () {
   themeSet = 'LIGHT';
@@ -83,7 +83,20 @@ export function switchThemes (layer) {
     if (((layer.type === 'Artboard') || (layer.type === 'SymbolMaster')) && (layer.background.enabled) && (settingArtboards) && ((Boolean(layer.background.color == defaultBgLight)) || (Boolean(layer.background.color == defaultBgDark)))) {
       layer.background.color = (themeSet === 'DARK') ? defaultBgDark : defaultBgLight;
     }
-
+    
+    // UPDATE: Check if Group is styled and run switch
+    if ((layer.type === 'Group') && (layer.sharedStyle) && (settingGroups)) {
+        console.log('debug');
+        let newSharedLayerStyle = shapeParser(layer.sharedStyle);
+        console.log('debug');
+        if (!newSharedLayerStyle) {
+          // failed
+        } else {
+          layer.sharedStyle = newSharedLayerStyle;
+          layer.style.syncWithSharedStyle(newSharedLayerStyle);
+          changeNo++;
+        }
+    }
 
     // iterate through child layers
     layer.layers.forEach(switchThemes);
@@ -171,7 +184,7 @@ export function overrideParser(instance) {
     let instanceId = instance.overrides.map(i => i.id).indexOf(override.id);
     let masterId = instance.master.overrides.map(i => i.id).indexOf(override.id);
     let masterCorrected = (masterId >= 0) ? masterId : 0;
-    
+
     let defaultMasterValue = instance.master.overrides[masterCorrected].value;
     instance.setOverrideValue(instance.overrides[instanceId], defaultMasterValue);
   });

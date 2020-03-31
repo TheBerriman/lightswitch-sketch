@@ -5,7 +5,7 @@ const selection = document.selectedLayers;
 
 var textFieldLight, textFieldDark;
 var hexLight, hexDark;
-var artboardsCheckbox, symbolsCheckbox, textLayersCheckbox, shapeLayersCheckbox, overridesCheckbox;
+var artboardsCheckbox, symbolsCheckbox, textLayersCheckbox, shapeLayersCheckbox, overridesCheckbox, groupsCheckbox;
 
 export function getInputFromUser(context){
   // Create and show dialog window
@@ -31,6 +31,7 @@ export function getInputFromUser(context){
     textLayersCheckbox = textLayersCheckbox.stringValue();
     shapeLayersCheckbox = shapeLayersCheckbox.stringValue();
     overridesCheckbox = overridesCheckbox.stringValue();
+    groupsCheckbox = groupsCheckbox.stringValue();
 
     updateSettings();
 
@@ -73,7 +74,7 @@ export function createWindow() {
     var toggleLabel = NSTextField.alloc().initWithFrame(NSMakeRect(0, viewHeight - 163, (viewWidth - 30), 55));
 
     // Configure labels
-    infoLabel.setStringValue("Change default light/dark Artboard colors and disable switching specific layer types.");
+    infoLabel.setStringValue("Change default artboard colors and disable switching specific layer types.");
     infoLabel.setSelectable(false);
     infoLabel.setEditable(false);
     infoLabel.setBezeled(false);
@@ -134,6 +135,7 @@ export function createWindow() {
     textLayersCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - 172.5, viewWidth - viewSpacer, 20));
     shapeLayersCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(140, viewHeight - 172.5, viewWidth - viewSpacer, 20));
     overridesCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(0, viewHeight - 195, viewWidth - viewSpacer, 20));
+    groupsCheckbox = NSButton.alloc().initWithFrame(NSMakeRect(140, viewHeight - 195, viewWidth - viewSpacer, 20));
 
 
     // Configure checkboxes
@@ -167,12 +169,19 @@ export function createWindow() {
     overridesCheckbox.setTitle("Symbol Overrides");
     overridesCheckbox.setState(defaultOverrides);
 
+    const defaultGroups = (sketch.Settings.settingForKey('lsToggledGroups') == 0) ? NSOffState : NSOnState;
+    groupsCheckbox.setButtonType(NSSwitchButton);
+    groupsCheckbox.setBezelStyle(0);
+    groupsCheckbox.setTitle("Groups");
+    groupsCheckbox.setState(defaultOverrides);
+
     // Add checkbox
     view.addSubview(artboardsCheckbox);
     view.addSubview(symbolsCheckbox);
     view.addSubview(textLayersCheckbox);
     view.addSubview(shapeLayersCheckbox);
     view.addSubview(overridesCheckbox);
+    view.addSubview(groupsCheckbox);
 
 
   // Show the dialog window
@@ -193,6 +202,7 @@ export function updateSettings() {
   sketch.Settings.setSettingForKey('lsToggledTextLayers', textLayersCheckbox);
   sketch.Settings.setSettingForKey('lsToggledShapes', shapeLayersCheckbox);
   sketch.Settings.setSettingForKey('lsToggledOverrides', overridesCheckbox);
+  sketch.Settings.setSettingForKey('lsToggledGroups', groupsCheckbox);
 }
 
 export function resetSettings() {
@@ -204,4 +214,5 @@ export function resetSettings() {
   sketch.Settings.setSettingForKey('lsToggledTextLayers', 1);
   sketch.Settings.setSettingForKey('lsToggledShapes', 1);
   sketch.Settings.setSettingForKey('lsToggledOverrides', 1);
+  sketch.Settings.setSettingForKey('lsToggledGroups', 1);
 }
